@@ -12,7 +12,7 @@ chai.config.includeStack = true;
 describe('MBTADataHelper', function() {
   var subject = new MBTADataHelper();
 
-  describe('#getAllRoutes', function() {
+  describe('#requestAllRoutes', function() {
     // Fix this test and figure out how to compare JSON file to REAL JSON request
     context('with a valid request', function() {
       it('returns a list of all MBTA routes', function() {
@@ -34,7 +34,7 @@ describe('MBTADataHelper', function() {
     });
   });
 
-  describe('#getAllStopsByRoute', function() {
+  describe('#requestAllStopsByRoute', function() {
     var subject = new MBTADataHelper();
     context('with a valid route ID', function() {
       it('returns a list of all stops (by route)', function() {
@@ -47,7 +47,7 @@ describe('MBTADataHelper', function() {
     });
   });
 
-  describe('#getPredictionsByStop', function() {
+  describe('#requestPredictionsByStop', function() {
     var subject = new MBTADataHelper();
     context('#with a valid stop ID', function() {
       it('returns a list of predictions for the next hour', function() {
