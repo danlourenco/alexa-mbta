@@ -36,7 +36,7 @@ describe('MBTADataHelper', function() {
 
   describe('#getAllStopsByRoute', function() {
     var subject = new MBTADataHelper();
-    context('with a valid request', function() {
+    context('with a valid route ID', function() {
       it('returns a list of all stops (by route)', function() {
         var stopId = 'Green-C';
         var stop = subject.requestAllStopsByRoute(stopId).then(function(response) {

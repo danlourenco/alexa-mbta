@@ -18,7 +18,6 @@ function MBTADataHelper() {}
 
 MBTADataHelper.prototype.requestAllRoutes = function() {
   return this.getAllRoutes().then(function(response) {
-    console.log('success - received all routes');
     return response.body;
   });
 };
@@ -48,7 +47,6 @@ MBTADataHelper.prototype.findRouteIdByName = function(obj, name) {
 
 MBTADataHelper.prototype.requestAllStopsByRoute = function(routeId) {
   return this.getAllStopsByRoute(routeId).then(function(response) {
-    console.log('success - received all stops');
     return response.body;
   });
 }
@@ -66,7 +64,6 @@ MBTADataHelper.prototype.getAllStopsByRoute = function(routeId) {
 
 MBTADataHelper.prototype.requestPredictionsByStop = function(stopId) {
   return this.getPredictionsByStop(stopId).then(function(response) {
-    console.log('success - received predictions by stop');
     return response.body;
   });
 }
