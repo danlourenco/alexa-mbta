@@ -34,15 +34,15 @@ describe('MBTADataHelper', function() {
     });
   });
 
-  describe('#getAllStops', function() {
+  describe('#getAllStopsByRoute', function() {
     var subject = new MBTADataHelper();
     context('with a valid request', function() {
       it('returns a list of all stops (by route)', function() {
-        var allStops = subject.requestAllStops().then(function(response) {
-          return response;
+        var stopId = 'Green-C';
+        var stop = subject.requestAllStopsByRoute(stopId).then(function(response) {
+          return response.direction[1].stop[0].stop_name;
         });
-        return expect(allStops).to.eventually.exist;
-        // return expect(allStops).to.eventually.equal(stops);
+        return expect(stop).to.eventually.equal('Cleveland Circle - Inbound');
       });
     });
   });

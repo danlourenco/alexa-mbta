@@ -1,14 +1,18 @@
 'use strict';
-var rp = require('request-promise');
-var _ = require('lodash');
 
-var ROUTES_ENDPOINT = 'http://realtime.mbta.com/developer/api/v2/routes?api_key=wX9NwuHnZU2ToO7GmGR9uw&format=json';
+var rp              = require('request-promise');
+var _               = require('lodash');
+var routesFile      = require('./routes.json');
+var stopsFile       = require('./stops.json');
 
-var STOPS_BY_ROUTE_ENDPOINT = 'http://realtime.mbta.com/developer/api/v2/stopsbyroute?api_key=wX9NwuHnZU2ToO7GmGR9uw&route=Red&format=json';
+// CONSTANTS
+var BASE_URL        = 'http://realtime.mbta.com/developer/api/v2/';
+var URL_SUFFIX      = '?api_key=wX9NwuHnZU2ToO7GmGR9uw&format=json';
+var FORMAT          = 'format=json';
+var API_KEY         = 'wX9NwuHnZU2ToO7GmGR9uw' ;
+var ROUTES_ENDPOINT = `${BASE_URL}routes${URL_SUFFIX}`;
 
-var routesFile = require('./routes.json');
-var stopsFile  = require('./stops.json');
-var routes = routesFile.mode;
+var routes          = routesFile.mode;
 
 function MBTADataHelper() {}
 
@@ -42,17 +46,18 @@ MBTADataHelper.prototype.findRouteIdByName = function(obj, name) {
   return match.route_id;
 };
 
-MBTADataHelper.prototype.requestAllStops = function() {
-  return this.getAllStops().then(function(response) {
+MBTADataHelper.prototype.requestAllStopsByRoute = function(routeId) {
+  return this.getAllStopsByRoute(routeId).then(function(response) {
     console.log('success - received all stops');
     return response.body;
   });
 }
 
-MBTADataHelper.prototype.getAllStops = function() {
+MBTADataHelper.prototype.getAllStopsByRoute = function(routeId) {
+  let ALL_STOPS_BY_ROUTE_ENDPOINT = `${BASE_URL}stopsbyroute?api_key=${API_KEY}&route=${routeId}&${FORMAT}`;
   var options = {
     method: 'GET',
-    uri: STOPS_BY_ROUTE_ENDPOINT,
+    uri: ALL_STOPS_BY_ROUTE_ENDPOINT,
     resolveWithFullResponse: true,
     json: true
   };
