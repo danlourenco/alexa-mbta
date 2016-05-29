@@ -23,13 +23,7 @@ MBTADataHelper.prototype.requestAllRoutes = function() {
 };
 
 MBTADataHelper.prototype.getAllRoutes = function() {
-  var options = {
-    method: 'GET',
-    uri: ROUTES_ENDPOINT,
-    resolveWithFullResponse: true,
-    json: true
-  };
-  return rp(options);
+  return _makeRequest(ROUTES_ENDPOINT);
 };
 
 // refactor to deep search through a generic collection
@@ -51,15 +45,10 @@ MBTADataHelper.prototype.requestAllStopsByRoute = function(routeId) {
   });
 }
 
+// Refactor to make generic request with endpoint and id as args
 MBTADataHelper.prototype.getAllStopsByRoute = function(routeId) {
-  let ALL_STOPS_BY_ROUTE_ENDPOINT = `${BASE_URL}stopsbyroute?api_key=${API_KEY}&route=${routeId}&${FORMAT}`;
-  var options = {
-    method: 'GET',
-    uri: ALL_STOPS_BY_ROUTE_ENDPOINT,
-    resolveWithFullResponse: true,
-    json: true
-  };
-  return rp(options);
+  const ALL_STOPS_BY_ROUTE_ENDPOINT = `${BASE_URL}stopsbyroute?api_key=${API_KEY}&route=${routeId}&${FORMAT}`;
+  return _makeRequest(ALL_STOPS_BY_ROUTE_ENDPOINT);
 }
 
 MBTADataHelper.prototype.requestPredictionsByStop = function(stopId) {
@@ -70,9 +59,15 @@ MBTADataHelper.prototype.requestPredictionsByStop = function(stopId) {
 
 MBTADataHelper.prototype.getPredictionsByStop = function(stopId) {
   let PREDICTIONS_BY_STOP_ENDPOINT = `http://realtime.mbta.com/developer/api/v2/predictionsbystop?api_key=wX9NwuHnZU2ToO7GmGR9uw&stop=${stopId}&format=json`;
+
+  return _makeRequest(PREDICTIONS_BY_STOP_ENDPOINT);
+}
+
+// Helper function
+function _makeRequest(uri) {
   var options = {
     method: 'GET',
-    uri: PREDICTIONS_BY_STOP_ENDPOINT,
+    uri: uri,
     resolveWithFullResponse: true,
     json: true
   };
