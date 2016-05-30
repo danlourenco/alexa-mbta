@@ -3,13 +3,12 @@
 var rp              = require('request-promise');
 var _               = require('lodash');
 var routesFile      = require('./api-responses/routes.json');
-var stopsFile       = require('./api-responses/stops.json');
 
 // CONSTANTS
 var BASE_URL        = 'http://realtime.mbta.com/developer/api/v2/';
 var URL_SUFFIX      = '?api_key=wX9NwuHnZU2ToO7GmGR9uw&format=json';
 var FORMAT          = 'format=json';
-var API_KEY         = 'wX9NwuHnZU2ToO7GmGR9uw' ;
+var API_KEY         = 'wX9NwuHnZU2ToO7GmGR9uw'; // it's public; don't worry!
 var ROUTES_ENDPOINT = `${BASE_URL}routes${URL_SUFFIX}`;
 var routes          = routesFile.mode;
 
@@ -57,7 +56,7 @@ MBTADataHelper.prototype.requestPredictionsByStop = function(stopId) {
 }
 
 MBTADataHelper.prototype.getPredictionsByStop = function(stopId) {
-  let PREDICTIONS_BY_STOP_ENDPOINT = `http://realtime.mbta.com/developer/api/v2/predictionsbystop?api_key=wX9NwuHnZU2ToO7GmGR9uw&stop=${stopId}&format=json`;
+  const PREDICTIONS_BY_STOP_ENDPOINT = `http://realtime.mbta.com/developer/api/v2/predictionsbystop?api_key=wX9NwuHnZU2ToO7GmGR9uw&stop=${stopId}&format=json`;
   return _makeRequest(PREDICTIONS_BY_STOP_ENDPOINT);
 }
 
