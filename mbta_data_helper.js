@@ -2,7 +2,6 @@
 
 var rp              = require('request-promise');
 var _               = require('lodash');
-var moment          = require('moment');
 var routesFile      = require('./routes.json');
 var stopsFile       = require('./stops.json');
 
