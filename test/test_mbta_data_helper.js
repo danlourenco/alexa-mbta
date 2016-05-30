@@ -6,6 +6,7 @@ var expect = chai.expect;
 var MBTADataHelper = require('../mbta_data_helper');
 var routes = require('../routes');
 var stops = require('../stops');
+var stop = require('../stop');
 
 chai.config.includeStack = true;
 
@@ -48,14 +49,28 @@ describe('MBTADataHelper', function() {
   });
 
   describe('#requestPredictionsByStop', function() {
-    var subject = new MBTADataHelper();
-    context('#with a valid stop ID', function() {
+
+    context('with a valid stop ID', function() {
       it('returns a list of predictions for the next hour', function() {
         var stopId = 70224;
         var stopName = subject.requestPredictionsByStop(stopId).then(function(response) {
           return response.stop_name;
         });
         return expect(stopName).to.eventually.eq('Summit Avenue - Inbound');
+      });
+    });
+  });
+
+  describe('#formatPrediction', function() {
+
+    context('with prediction information available', function() {
+      it('formats the status as expected', function() {
+        return expect(subject.formatPrediction(stop)).to.eq('The next train to North Station from Summit Avenue - Inbound departs in 3 minutes and 33 seconds.');
+      });
+    });
+    context('with prediction information unavailable', function() {
+      it('formats the status as expected', function() {
+
       });
     });
   });

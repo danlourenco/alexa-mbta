@@ -2,6 +2,7 @@
 
 var rp              = require('request-promise');
 var _               = require('lodash');
+var moment          = require('moment');
 var routesFile      = require('./routes.json');
 var stopsFile       = require('./stops.json');
 
@@ -11,7 +12,6 @@ var URL_SUFFIX      = '?api_key=wX9NwuHnZU2ToO7GmGR9uw&format=json';
 var FORMAT          = 'format=json';
 var API_KEY         = 'wX9NwuHnZU2ToO7GmGR9uw' ;
 var ROUTES_ENDPOINT = `${BASE_URL}routes${URL_SUFFIX}`;
-
 var routes          = routesFile.mode;
 
 function MBTADataHelper() {}
@@ -59,8 +59,18 @@ MBTADataHelper.prototype.requestPredictionsByStop = function(stopId) {
 
 MBTADataHelper.prototype.getPredictionsByStop = function(stopId) {
   let PREDICTIONS_BY_STOP_ENDPOINT = `http://realtime.mbta.com/developer/api/v2/predictionsbystop?api_key=wX9NwuHnZU2ToO7GmGR9uw&stop=${stopId}&format=json`;
-
   return _makeRequest(PREDICTIONS_BY_STOP_ENDPOINT);
+}
+
+MBTADataHelper.prototype.formatPrediction = function(stopResponse) {
+  let stopName = stopResponse.stop_name;
+  let tripData = stopResponse.mode[0].route[0].direction[0].trip;
+  let destination = tripData[0].trip_headsign;
+  // let predictedTimeOfArrival = tripData[0].pre_dt;
+  let predictedTimeInSeconds = tripData[0].pre_away;
+  let minutes = Math.floor(predictedTimeInSeconds / 60);
+  let seconds = predictedTimeInSeconds % 60;
+  return `The next train to ${destination} from ${stopName} departs in ${minutes} minutes and ${seconds} seconds.`;
 }
 
 // Helper function
