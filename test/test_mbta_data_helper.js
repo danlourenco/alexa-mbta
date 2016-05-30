@@ -4,9 +4,9 @@ var chaiAsPromised = require('chai-as-promised');
 chai.use(chaiAsPromised);
 var expect = chai.expect;
 var MBTADataHelper = require('../mbta_data_helper');
-var routes = require('../routes');
-var stops = require('../stops');
-var stop = require('../stop');
+var routes = require('../api-responses/routes');
+var stops = require('../api-responses/stops');
+var stop = require('../api-responses/stop');
 
 chai.config.includeStack = true;
 

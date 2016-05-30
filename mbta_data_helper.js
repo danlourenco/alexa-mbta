@@ -2,8 +2,8 @@
 
 var rp              = require('request-promise');
 var _               = require('lodash');
-var routesFile      = require('./routes.json');
-var stopsFile       = require('./stops.json');
+var routesFile      = require('./api-responses/routes.json');
+var stopsFile       = require('./api-responses/stops.json');
 
 // CONSTANTS
 var BASE_URL        = 'http://realtime.mbta.com/developer/api/v2/';
